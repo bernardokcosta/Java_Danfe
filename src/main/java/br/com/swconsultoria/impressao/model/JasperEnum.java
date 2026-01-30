@@ -24,7 +24,7 @@ public enum JasperEnum {
     }
 
     public JasperReport getJasper() {
-        String caminhoJrxml = "/jasper" + caminho + ".jrxml";
-        return ImpressaoUtil.compilaJasperResources(caminhoJrxml);
+        String caminhoJasper = "/jasper" + caminho + ".jasper";
+        return ImpressaoUtil.carregaJasperResources(caminhoJasper);
     }
 }

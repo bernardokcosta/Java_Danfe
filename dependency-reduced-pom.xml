@@ -148,22 +148,6 @@
                   <pattern>com.lowagie</pattern>
                   <shadedPattern>br.com.swconsultoria.shaded.lowagie</shadedPattern>
                 </relocation>
-                <relocation>
-                  <pattern>net.sf.jasperreports</pattern>
-                  <shadedPattern>br.com.swconsultoria.shaded.jasperreports</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>org.apache.commons.digester</pattern>
-                  <shadedPattern>br.com.swconsultoria.shaded.digester</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>org.apache.commons.beanutils</pattern>
-                  <shadedPattern>br.com.swconsultoria.shaded.beanutils</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>org.apache.commons.collections</pattern>
-                  <shadedPattern>br.com.swconsultoria.shaded.collections</shadedPattern>
-                </relocation>
               </relocations>
               <filters>
                 <filter>
