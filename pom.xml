@@ -230,6 +230,54 @@
             </plugin>
 
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>true</createDependencyReducedPom>
+                            
+                            <artifactSet>
+                                <includes>
+                                    <include>net.sf.jasperreports:jasperreports</include>
+                                    <include>com.github.librepdf:openpdf</include>
+                                    <include>com.lowagie:itext</include>
+                                    <include>net.sf.jasperreports:jasperreports-fonts</include>
+                                </includes>
+                            </artifactSet>
+
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.lowagie</pattern>
+                                    <shadedPattern>br.com.swconsultoria.shaded.lowagie</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>net.sf.jasperreports</pattern>
+                                    <shadedPattern>br.com.swconsultoria.shaded.jasperreports</shadedPattern>
+                                </relocation>
+                            </relocations>
+
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.0.0</version>
