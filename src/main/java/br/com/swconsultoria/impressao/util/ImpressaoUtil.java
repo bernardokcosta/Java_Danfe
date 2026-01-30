@@ -77,6 +77,17 @@ public class ImpressaoUtil {
 		}
 	}
 
+	public static JasperReport compilaJasperResources(String caminhoJrxml) {
+		try (InputStream in = ImpressaoUtil.class.getResourceAsStream(caminhoJrxml)) {
+			if (in == null) {
+				throw new DanfeException(String.format("JRXML não encontrado %s", caminhoJrxml));
+			}
+			return net.sf.jasperreports.engine.JasperCompileManager.compileReport(in);
+		} catch (IOException | JRException e) {
+			throw new DanfeException(String.format("Erro ao compilar JRXML %s", caminhoJrxml), e);
+		}
+	}
+
 	/**
 	 * Gera Objeto padrão para impressão da NFe
 	 *
