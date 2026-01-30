@@ -248,6 +248,9 @@
                                     <include>com.github.librepdf:openpdf</include>
                                     <include>com.lowagie:itext</include>
                                     <include>net.sf.jasperreports:jasperreports-fonts</include>
+                                    <include>commons-digester:commons-digester</include>
+                                    <include>commons-beanutils:commons-beanutils</include>
+                                    <include>commons-collections:commons-collections</include>
                                 </includes>
                             </artifactSet>
 
@@ -259,6 +262,18 @@
                                 <relocation>
                                     <pattern>net.sf.jasperreports</pattern>
                                     <shadedPattern>br.com.swconsultoria.shaded.jasperreports</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.commons.digester</pattern>
+                                    <shadedPattern>br.com.swconsultoria.shaded.digester</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.commons.beanutils</pattern>
+                                    <shadedPattern>br.com.swconsultoria.shaded.beanutils</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.commons.collections</pattern>
+                                    <shadedPattern>br.com.swconsultoria.shaded.collections</shadedPattern>
                                 </relocation>
                             </relocations>
 
