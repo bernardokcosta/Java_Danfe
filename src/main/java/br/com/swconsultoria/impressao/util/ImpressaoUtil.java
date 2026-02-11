@@ -94,12 +94,24 @@ public class ImpressaoUtil {
 	 * @return
 	 */
 	public static Impressao impressaoPadraoNFe(String xml) {
+		return impressaoPadraoNFe(xml, false);
+	}
+
+	/**
+	 * Gera Objeto padrão para impressão da NFe
+	 *
+	 * @param xml XML da NFe
+	 * @param cancelada Indica se a NFe foi cancelada
+	 * @return
+	 */
+	public static Impressao impressaoPadraoNFe(String xml, boolean cancelada) {
 		Impressao impressaoNFe = new Impressao();
 		impressaoNFe.setXml(xml);
 		impressaoNFe.setPathExpression(PATH_NFE);
 		impressaoNFe.setJasper(JasperEnum.NFE.getJasper());
 		impressaoNFe.getParametros().put(PARAM_LOGO_NFE, ImpressaoService.class.getResourceAsStream(PATH_LOGO_NFE));
 		impressaoNFe.getParametros().put("SUBREPORT", JasperEnum.NFE_FATURA.getJasper());
+		impressaoNFe.getParametros().put(PARAM_CANCELADA, cancelada);
 		return impressaoNFe;
 	}
 

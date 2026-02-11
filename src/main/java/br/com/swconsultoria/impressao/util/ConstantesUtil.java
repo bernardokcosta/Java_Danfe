@@ -14,6 +14,8 @@ public class ConstantesUtil {
     public static final String PARAM_LOGO_NFCE = "Logo";
     public static final String PARAM_LOGO_CTE = "Logotipo";
     public static final String PARAM_LOGO_MDFE = "Logotipo";
+    //PARAM CANCELADA
+    public static final String PARAM_CANCELADA = "Cancelada";
     //PATH LOGO
     public static final String PATH_LOGO_NFE = "/img/nfe.png";
     public static final String PATH_LOGO_NFCE = "/img/nfce.png";

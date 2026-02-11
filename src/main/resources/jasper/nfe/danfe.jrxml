@@ -25,6 +25,10 @@
 	<parameter name="Logo" class="java.io.InputStream" isForPrompting="false">
 		<parameterDescription><![CDATA[Imagem do logo da empresa.]]></parameterDescription>
 	</parameter>
+	<parameter name="Cancelada" class="java.lang.Boolean" isForPrompting="false">
+		<parameterDescription><![CDATA[Indica se a NF-e foi cancelada.]]></parameterDescription>
+		<defaultValueExpression><![CDATA[Boolean.FALSE]]></defaultValueExpression>
+	</parameter>
 	<parameter name="SUBREPORT" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
 	<parameter name="EXPRESSION_SUBREPORT" class="java.lang.String">
 		<defaultValueExpression><![CDATA["/nfeProc/NFe/infNFe/cobr/dup"]]></defaultValueExpression>
@@ -64,6 +68,9 @@
 	</field>
 	<field name="Protocolo" class="java.lang.String">
 		<fieldDescription><![CDATA[/nfeProc/protNFe/infProt/nProt]]></fieldDescription>
+	</field>
+	<field name="StatusNFe" class="java.lang.String">
+		<fieldDescription><![CDATA[/nfeProc/protNFe/infProt/cStat]]></fieldDescription>
 	</field>
 	<field name="dhRecbto" class="java.lang.String">
 		<fieldDescription><![CDATA[/nfeProc/protNFe/infProt/dhRecbto]]></fieldDescription>
@@ -966,7 +973,7 @@ $F{Trans_CPF}.substring(9,11) : ""]]></textFieldExpression>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 					<font fontName="Times New Roman" size="40" isBold="true" isItalic="false" isUnderline="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Emissao}.equals( "5" ) ? "DANFE em Contingência – impresso em decorrência de problemas técnicos" : $F{Ambiente}.equals( "2" ) || ($F{Ambiente}.equals( "1" ) && $F{Protocolo} == null) ? "SEM VALOR FISCAL" : ""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($P{Cancelada} != null && $P{Cancelada}.booleanValue()) || ($F{StatusNFe} != null && $F{StatusNFe}.equals("101")) ? "NF-e CANCELADA" : $F{Emissao}.equals( "5" ) ? "DANFE em Contingência – impresso em decorrência de problemas técnicos" : $F{Ambiente}.equals( "2" ) || ($F{Ambiente}.equals( "1" ) && $F{Protocolo} == null) ? "SEM VALOR FISCAL" : ""]]></textFieldExpression>
 			</textField>
 			<frame>
 				<reportElement positionType="FixRelativeToBottom" mode="Transparent" x="0" y="672" width="565" height="128" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="7bc2919d-19ec-4f88-8071-a698f85b684a">
