@@ -16,6 +16,12 @@ public class ConstantesUtil {
     public static final String PARAM_LOGO_CTE = "Logotipo";
     public static final String PARAM_LOGO_MDFE = "Logotipo";
     public static final String PARAM_CANCELADA = "Cancelada";
+    public static final String PARAM_TRANSPORTADORA_NOME = "TransportadoraNome";
+    public static final String PARAM_ENTREGA_NOME = "EntregaNome";
+    public static final String PARAM_ENTREGA_DOCUMENTO = "EntregaDocumento";
+    public static final String PARAM_ENTREGA_ENDERECO = "EntregaEndereco";
+    public static final String PARAM_ENTREGA_MUNICIPIO = "EntregaMunicipio";
+    public static final String PARAM_ENTREGA_UF = "EntregaUF";
     // PATH LOGO
     public static final String PATH_LOGO_NFE = "/img/nfe.png";
     public static final String PATH_LOGO_NFCE = "/img/nfce.png";

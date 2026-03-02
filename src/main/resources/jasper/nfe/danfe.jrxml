@@ -33,6 +33,12 @@
 	<parameter name="EXPRESSION_SUBREPORT" class="java.lang.String">
 		<defaultValueExpression><![CDATA["/nfeProc/NFe/infNFe/cobr/dup"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="TransportadoraNome" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="EntregaNome" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="EntregaDocumento" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="EntregaEndereco" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="EntregaMunicipio" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="EntregaUF" class="java.lang.String" isForPrompting="false"/>
 	<queryString language="xPath">
 		<![CDATA[/nfeProc/NFe/infNFe/det]]>
 	</queryString>
@@ -209,6 +215,33 @@
 	</field>
 	<field name="Trans_UF" class="java.lang.String">
 		<fieldDescription><![CDATA[../transp/transporta/UF]]></fieldDescription>
+	</field>
+	<field name="Entrega_CNPJ" class="java.lang.String">
+		<fieldDescription><![CDATA[../entrega/CNPJ]]></fieldDescription>
+	</field>
+	<field name="Entrega_CPF" class="java.lang.String">
+		<fieldDescription><![CDATA[../entrega/CPF]]></fieldDescription>
+	</field>
+	<field name="Entrega_Nome" class="java.lang.String">
+		<fieldDescription><![CDATA[../entrega/xNome]]></fieldDescription>
+	</field>
+	<field name="Entrega_Logradouro" class="java.lang.String">
+		<fieldDescription><![CDATA[../entrega/xLgr]]></fieldDescription>
+	</field>
+	<field name="Entrega_Numero" class="java.lang.String">
+		<fieldDescription><![CDATA[../entrega/nro]]></fieldDescription>
+	</field>
+	<field name="Entrega_Complemento" class="java.lang.String">
+		<fieldDescription><![CDATA[../entrega/xCpl]]></fieldDescription>
+	</field>
+	<field name="Entrega_Bairro" class="java.lang.String">
+		<fieldDescription><![CDATA[../entrega/xBairro]]></fieldDescription>
+	</field>
+	<field name="Entrega_Municipio" class="java.lang.String">
+		<fieldDescription><![CDATA[../entrega/xMun]]></fieldDescription>
+	</field>
+	<field name="Entrega_UF" class="java.lang.String">
+		<fieldDescription><![CDATA[../entrega/UF]]></fieldDescription>
 	</field>
 	<field name="Trans_Volumes" class="java.lang.String">
 		<fieldDescription><![CDATA[../transp/vol/qVol]]></fieldDescription>
@@ -455,7 +488,7 @@ $F{infAdProd} != null && !$F{infAdProd}.trim().isEmpty() ? $V{count_infAdProd}+1
 						<textElement>
 							<font size="5" isBold="true" isItalic="false"/>
 						</textElement>
-						<text><![CDATA[TRANSPORTADOR / VOLUMES TRANSPORTADOS]]></text>
+						<text><![CDATA[TRANSPORTE / ENTREGA / VOLUMES]]></text>
 					</staticText>
 					<staticText>
 						<reportElement style="campoPequeno" x="432" y="71" width="24" height="6" uuid="2a69e7ec-ee64-41c6-9033-5fdf6dc7d6d3"/>
@@ -487,7 +520,7 @@ $F{infAdProd} != null && !$F{infAdProd}.trim().isEmpty() ? $V{count_infAdProd}+1
 					</staticText>
 					<staticText>
 						<reportElement style="campoPequeno" x="460" y="95" width="103" height="6" uuid="fdfbe61d-1a97-48b8-a813-f9bb5d4321b7"/>
-						<text><![CDATA[INSCRIÇÃO ESTADUAL]]></text>
+						<text><![CDATA[IE / DEST. ENTREGA]]></text>
 					</staticText>
 					<staticText>
 						<reportElement style="campoPequeno" x="432" y="95" width="24" height="6" uuid="f4002aed-33cd-4100-96fd-57abf13bb422"/>
@@ -601,7 +634,10 @@ $F{infAdProd} != null && !$F{infAdProd}.trim().isEmpty() ? $V{count_infAdProd}+1
 						<textElement>
 							<font size="7"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{Trans_Nome}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{Trans_Nome} != null && !$F{Trans_Nome}.trim().isEmpty() ? $F{Trans_Nome} :
+$P{TransportadoraNome} != null && !$P{TransportadoraNome}.trim().isEmpty() ? $P{TransportadoraNome} :
+$F{Entrega_Nome} != null && !$F{Entrega_Nome}.trim().isEmpty() ? $F{Entrega_Nome} :
+$P{EntregaNome} != null && !$P{EntregaNome}.trim().isEmpty() ? $P{EntregaNome} : null]]></textFieldExpression>
 					</textField>
 					<textField pattern="" isBlankWhenNull="true">
 						<reportElement style="dados" x="460" y="78" width="103" height="17" uuid="4fc1ec78-3a3b-4580-a2aa-2b7502af42ee"/>
@@ -610,38 +646,59 @@ $F{infAdProd} != null && !$F{infAdProd}.trim().isEmpty() ? $V{count_infAdProd}+1
 						</textElement>
 						<textFieldExpression><![CDATA[$F{Trans_CNPJ} != null ? $F{Trans_CNPJ}.substring(0,2) + "." +
 $F{Trans_CNPJ}.substring(2,5) + "." + $F{Trans_CNPJ}.substring(5,8) + "/" +
-$F{Trans_CNPJ}.substring(8,12) + "-" + $F{Trans_CNPJ}.substring(12,14) : 
+$F{Trans_CNPJ}.substring(8,12) + "-" + $F{Trans_CNPJ}.substring(12,14) :
 $F{Trans_CPF} != null ? $F{Trans_CPF}.substring(0,3) + "." +
 $F{Trans_CPF}.substring(3,6) + "." + $F{Trans_CPF}.substring(6,9) + "-" +
-$F{Trans_CPF}.substring(9,11) : ""]]></textFieldExpression>
+$F{Trans_CPF}.substring(9,11) :
+$F{Entrega_CNPJ} != null ? $F{Entrega_CNPJ}.substring(0,2) + "." +
+$F{Entrega_CNPJ}.substring(2,5) + "." + $F{Entrega_CNPJ}.substring(5,8) + "/" +
+$F{Entrega_CNPJ}.substring(8,12) + "-" + $F{Entrega_CNPJ}.substring(12,14) :
+$F{Entrega_CPF} != null ? $F{Entrega_CPF}.substring(0,3) + "." +
+$F{Entrega_CPF}.substring(3,6) + "." + $F{Entrega_CPF}.substring(6,9) + "-" +
+$F{Entrega_CPF}.substring(9,11) :
+$P{EntregaDocumento} != null && $P{EntregaDocumento}.length() == 14 ? $P{EntregaDocumento}.substring(0,2) + "." +
+$P{EntregaDocumento}.substring(2,5) + "." + $P{EntregaDocumento}.substring(5,8) + "/" +
+$P{EntregaDocumento}.substring(8,12) + "-" + $P{EntregaDocumento}.substring(12,14) :
+$P{EntregaDocumento} != null && $P{EntregaDocumento}.length() == 11 ? $P{EntregaDocumento}.substring(0,3) + "." +
+$P{EntregaDocumento}.substring(3,6) + "." + $P{EntregaDocumento}.substring(6,9) + "-" +
+$P{EntregaDocumento}.substring(9,11) : ""]]></textFieldExpression>
 					</textField>
 					<textField textAdjust="StretchHeight" isBlankWhenNull="false">
 						<reportElement style="dados" x="227" y="77" width="70" height="16" uuid="ae35a1c0-4378-403d-8715-694b3ad802d1"/>
 						<textElement textAlignment="Left">
 							<font size="7"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{Frete}.equals( "0" ) ? "0-EMITENTE" : $F{Frete}.equals( "1" ) ? "1-DESTINATARIO" : $F{Frete}.equals( "2" ) ? "2-TERCEIRO" : $F{Frete}.equals( "3" ) ? "3-PRÓPRIO REMET." : $F{Frete}.equals( "4" ) ? "4-PRÓPRIO DEST." : "9-SEM FRETE"]]></textFieldExpression>
+						<textFieldExpression><![CDATA["0".equals($F{Frete}) ? "0-EMITENTE" : "1".equals($F{Frete}) ? "1-DESTINATARIO" : "2".equals($F{Frete}) ? "2-TERCEIRO" : "3".equals($F{Frete}) ? "3-PROPRIO REMET." : "4".equals($F{Frete}) ? "4-PROPRIO DEST." : "9-SEM FRETE"]]></textFieldExpression>
 					</textField>
 					<textField isBlankWhenNull="true">
 						<reportElement style="dados" x="460" y="101" width="103" height="16" uuid="7b295808-712b-4947-a4d0-4d133b4bf03e"/>
 						<textElement>
 							<font size="7"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{Trans_IE}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{Trans_IE} != null && !$F{Trans_IE}.trim().isEmpty() ? $F{Trans_IE} :
+$F{Entrega_Nome} != null && !$F{Entrega_Nome}.trim().isEmpty() ? $F{Entrega_Nome} :
+$P{EntregaNome} != null && !$P{EntregaNome}.trim().isEmpty() ? $P{EntregaNome} : null]]></textFieldExpression>
 					</textField>
 					<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 						<reportElement style="dados" x="2" y="101" width="222" height="16" uuid="48eddfad-5dea-414a-929d-e05166ff745b"/>
 						<textElement>
 							<font size="7"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{Trans_Endereco}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{Trans_Endereco} != null && !$F{Trans_Endereco}.trim().isEmpty() ? $F{Trans_Endereco} :
+$F{Entrega_Logradouro} != null && !$F{Entrega_Logradouro}.trim().isEmpty() ? $F{Entrega_Logradouro} +
+($F{Entrega_Numero} != null && !$F{Entrega_Numero}.trim().isEmpty() ? ", " + $F{Entrega_Numero} : "") +
+($F{Entrega_Complemento} != null && !$F{Entrega_Complemento}.trim().isEmpty() ? " " + $F{Entrega_Complemento} : "") +
+($F{Entrega_Bairro} != null && !$F{Entrega_Bairro}.trim().isEmpty() ? " - " + $F{Entrega_Bairro} : "") :
+$P{EntregaEndereco} != null && !$P{EntregaEndereco}.trim().isEmpty() ? $P{EntregaEndereco} : null]]></textFieldExpression>
 					</textField>
 					<textField isBlankWhenNull="true">
 						<reportElement style="dados" x="432" y="101" width="24" height="16" uuid="4d834efe-496d-4d7c-845b-b2cbd3312c91"/>
 						<textElement>
 							<font size="7"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{Trans_UF}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{Trans_UF} != null && !$F{Trans_UF}.trim().isEmpty() ? $F{Trans_UF} :
+$F{Entrega_UF} != null && !$F{Entrega_UF}.trim().isEmpty() ? $F{Entrega_UF} :
+$P{EntregaUF} != null && !$P{EntregaUF}.trim().isEmpty() ? $P{EntregaUF} : null]]></textFieldExpression>
 					</textField>
 					<textField isBlankWhenNull="true">
 						<reportElement style="dados" x="228" y="101" width="201" height="16" uuid="6cd7635e-e047-4b5a-90ab-7fe0d5c89e9b">
@@ -650,7 +707,9 @@ $F{Trans_CPF}.substring(9,11) : ""]]></textFieldExpression>
 						<textElement>
 							<font size="7"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{Trans_Municipio}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{Trans_Municipio} != null && !$F{Trans_Municipio}.trim().isEmpty() ? $F{Trans_Municipio} :
+$F{Entrega_Municipio} != null && !$F{Entrega_Municipio}.trim().isEmpty() ? $F{Entrega_Municipio} :
+$P{EntregaMunicipio} != null && !$P{EntregaMunicipio}.trim().isEmpty() ? $P{EntregaMunicipio} : null]]></textFieldExpression>
 					</textField>
 					<textField pattern="###0.0000;(-###0.0000)" isBlankWhenNull="true">
 						<reportElement style="dados" x="368" y="125" width="100" height="16" uuid="12c57559-9576-45ba-bc95-e3d31db7c053">
