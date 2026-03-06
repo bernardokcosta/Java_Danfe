@@ -5,7 +5,7 @@ import net.sf.jasperreports.engine.JasperReport;
 
 public enum JasperEnum {
 
-    NFE("/nfe/danfe", true),
+    NFE("/nfe/danfe", false),
     NFE_FATURA("/nfe/danfe_fatura", false),
     NFCE("/nfce/danfce", false),
     CTE("/cte/dacte", false),
